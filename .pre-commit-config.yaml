@@ -53,11 +53,9 @@ repos:
       - id: codespell
         name: Lint spelling in source files (with --fix)
         args:
-          [
-            --ignore-words-list=nd,ot,te,
-            --skip=package-lock.json,node_modules,dist,build,coverage,*.lock,
-          ]
-        exclude: ^node_modules/
+          - "--ignore-words-list=nd,ot,te"
+          - "--skip=package-lock.json,node_modules,dist,build,coverage"
+        exclude: ^(node_modules|dist|build|coverage)/
 
   # === YAML ============================================================
   - repo: https://github.com/google/yamlfmt
@@ -65,11 +63,10 @@ repos:
     hooks:
       - id: yamlfmt
         name: Format YAML files with yamlfmt
-        args: [
-            --formatter,
-            "indent=2,include_document_start=false,retain_line_breaks=true",
-          ]
-        exclude: ^node_modules/
+        args:
+          - --formatter
+          - "indent=2,include_document_start=false,retain_line_breaks=true"
+        exclude: ^(\.pre-commit-config\.yaml|\.markdownlint\.yaml|node_modules)/
 
   # === Prettier =========================================================
   - repo: https://github.com/pre-commit/mirrors-prettier
@@ -88,7 +85,7 @@ repos:
           - css
           - scss
           - html
-        exclude: ^(node_modules|dist|build|coverage)/
+        exclude: ^(\.pre-commit-config\.yaml|\.markdownlint\.yaml|node_modules|dist|build|coverage)/
 
   # === ESLint ============================================================
   - repo: https://github.com/pre-commit/mirrors-eslint
