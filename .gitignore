@@ -2,6 +2,7 @@
 # Dependencies
 # =========================================================
 node_modules/
+package-lock.json
 
 # Package managers
 .pnpm-store/
@@ -21,7 +22,6 @@ out/
 .tmp/
 temp/
 .cache/
-.venv/
 
 # TypeScript
 *.tsbuildinfo
