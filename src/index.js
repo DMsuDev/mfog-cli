@@ -15,9 +15,9 @@ async function main() {
   contentBox(highlight(contentMsg));
 
   await waitTime(200);
-  
+
   const answers = await collectAnswers();
-  
+
   await generateProject(answers);
 
   await waitTime(250);
@@ -28,7 +28,7 @@ async function main() {
 
   await showSuccessInstructions(
     answers.name,
-    answers.framework + (answers.language || "")
+    answers.framework + (answers.language || ""),
   );
 }
 

@@ -14,8 +14,8 @@ export const FRAMEWORK_CHOICES = [
     name: chalk.white("Next.js"),
     value: "nextjs",
     description: chalk.whiteBright(
-        "Modern Next.js starter with React, TypeScript, TailwindCSS, and ESLint.\n\n" +
-        "A clean, fast, and scalable foundation using the App Router and the latest React features."
+      "Modern Next.js starter with React, TypeScript, TailwindCSS, and ESLint.\n\n" +
+        "A clean, fast, and scalable foundation using the App Router and the latest React features.",
     ),
   },
   new Separator(),
@@ -25,7 +25,7 @@ export const FRAMEWORK_CHOICES = [
     description: chalk.greenBright(
       "Lightweight Vue 3 + Vite starter template with Vue Router.\n\n" +
         "Ready for fast development with ESLint + Prettier," +
-        "modern composition API patterns, and excellent Node 20+ compatibility."
+        "modern composition API patterns, and excellent Node 20+ compatibility.",
     ),
   },
   new Separator(),
@@ -36,7 +36,7 @@ export const FRAMEWORK_CHOICES = [
       "Modern Angular starter generated with Angular CLI.\n\n" +
         "Pre-configured with best practices, lazy-loading support, " +
         "standalone components, signals & modern RxJS patterns — ready for " +
-        "building large-scale, maintainable enterprise applications."
+        "building large-scale, maintainable enterprise applications.",
     ),
   },
 ];

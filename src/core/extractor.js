@@ -3,7 +3,6 @@ import path from "node:path";
 import os from "node:os";
 import fs from "fs/promises";
 
-
 /**
  * Extracts a .7z archive (or other supported formats) to the target directory.
  * Returns a Promise that resolves when extraction is complete.
@@ -29,7 +28,9 @@ export async function extractTemplate(archivePath) {
     // Cleanup temp dir on failure
     try {
       await fs.rm(tmpDir, { recursive: true, force: true });
-    } catch {}
+    } catch (cleanupErr) {
+      console.debug?.(cleanupErr);
+    }
 
     console.error(err.message);
     throw new Error(
@@ -39,7 +40,8 @@ export async function extractTemplate(archivePath) {
         `• Corrupted or damaged archive file\n` +
         `• No write permissions in target folder\n` +
         `• Format not supported by 7za\n` +
-        `• Internal issue with 7zip-min binary`
+        `• Internal issue with 7zip-min binary`,
+      { cause: err },
     );
   }
 }

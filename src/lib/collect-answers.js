@@ -1,8 +1,5 @@
 import { QUESTIONS } from "../cli/prompts.js"; // adjust path as needed
-import {
-  FRAMEWORK_CHOICES,
-  LANGUAGE_CHOICES,
-} from "../cli/config/choices.js";
+import { FRAMEWORK_CHOICES, LANGUAGE_CHOICES } from "../cli/config/choices.js";
 import { error } from "../cli/config/log.js";
 
 const CHOICES_MAP = {
@@ -52,7 +49,7 @@ export async function collectAnswers() {
       answers[question.key] = await question.prompt(config);
     } catch (err) {
       const errorMsg = `Error while asking "${question.key}": ${error(
-        err.message
+        err.message,
       )}`;
       console.error(errorMsg);
       throw err; // You could also decide to continue / ask again

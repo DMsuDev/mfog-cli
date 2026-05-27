@@ -12,7 +12,7 @@ import { error } from "../cli/config/log.js";
 export async function updatePackageFiles(
   projectDir,
   newName,
-  newVersion = "0.1.0"
+  newVersion = "0.1.0",
 ) {
   const pkgPath = path.join(projectDir, "package.json");
 
@@ -26,8 +26,8 @@ export async function updatePackageFiles(
     await fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
     console.log(
       chalk.green(
-        `\n\nUpdated package.json → name: ${newName}, version: ${newVersion}`
-      )
+        `\n\nUpdated package.json → name: ${newName}, version: ${newVersion}`,
+      ),
     );
   } catch (err) {
     console.error(error(`Failed to update package.json: ${err.message}`));
@@ -59,8 +59,8 @@ export async function updatePackageFiles(
     } catch (err) {
       console.warn(
         chalk.yellow(
-          `Warning: Could not update package-lock.json: ${err.message}`
-        )
+          `Warning: Could not update package-lock.json: ${err.message}`,
+        ),
       );
     }
   }

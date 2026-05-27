@@ -23,7 +23,8 @@ export async function banner(title = "MFOG") {
     // Nice gradient effect (you can change the theme: passion, retro, mind, etc.)
     console.log(passion(asciiText));
   } catch (err) {
-    // Fallback in case figlet fails (very unlikely, but good to have)
+    // Log the figlet error for diagnostics, then show a simple fallback
+    console.debug?.(err);
     console.log(chalk.bold.cyan(`=== ${title.toUpperCase()} ===`));
   }
 }

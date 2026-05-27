@@ -19,9 +19,9 @@ export async function generateProject(answers) {
   const targetDir = path.join(process.cwd(), projectName);
 
   const message = `Creating: ${chalk.dim(
-    projectName
+    projectName,
   )} with framework ${chalk.dim(framework)}${chalk.dim(
-    language ? ` (${language.slice(1)})` : ""
+    language ? ` (${language.slice(1)})` : "",
   )}`;
 
   const spinner = ora(message).start();
@@ -30,17 +30,18 @@ export async function generateProject(answers) {
     // 1. Check if target directory already exists
     try {
       await fs.access(targetDir);
+
       console.log(
-        chalk.red(`Error: Directory "${projectName}" already exists.`)
+        chalk.red(`Error: Directory "${projectName}" already exists.`),
       );
       console.log(
         chalk.yellow(
-          "Solution: choose a different name or delete the existing folder."
-        )
+          "Solution: choose a different name or delete the existing folder.",
+        ),
       );
       process.exit(1);
-    } catch {
-      // Directory doesn't exist → good to proceed
+    } catch (accessErr) {
+      void accessErr; // Directory doesn't exist → proceed
     }
 
     // 2. Create target directory
@@ -56,7 +57,7 @@ export async function generateProject(answers) {
     } catch {
       throw new Error(
         `Template not found: ${templatePath}\n` +
-          `Make sure the file exists in the /templates/ directory.`
+          `Make sure the file exists in the /templates/ directory.`,
       );
     }
 
@@ -83,7 +84,11 @@ export async function generateProject(answers) {
               // naive recursive copy
               const sub = await fs.readdir(src);
               for (const s of sub) {
-                await fs.cp ? await fs.cp(path.join(src, s), path.join(dest, s), { recursive: true }) : null;
+                (await fs.cp)
+                  ? await fs.cp(path.join(src, s), path.join(dest, s), {
+                      recursive: true,
+                    })
+                  : null;
               }
             } else {
               const data = await fs.readFile(src);
@@ -96,7 +101,9 @@ export async function generateProject(answers) {
       // Cleanup extracted temp folder
       try {
         await fs.rm(extractedTemp, { recursive: true, force: true });
-      } catch {}
+      } catch (cleanupErr) {
+        console.debug?.(cleanupErr);
+      }
     }
 
     await updatePackageFiles(targetDir, projectName, version);
@@ -113,15 +120,12 @@ export async function generateProject(answers) {
         console.log(chalk.green("Initialized git repository.\n"));
       } catch (gitErr) {
         console.warn(
-          chalk.yellow(
-            `Warning: git initialization failed: ${gitErr.message}`
-          )
+          chalk.yellow(`Warning: git initialization failed: ${gitErr.message}`),
         );
       }
     }
 
     spinner.succeed("Project created successfully!");
-
   } catch (err) {
     spinner.fail("Failed to create project");
 
@@ -133,11 +137,11 @@ export async function generateProject(answers) {
       await fs.rm(targetDir, { recursive: true, force: true });
       console.log(
         chalk.dim(
-          "Partially created folder was removed to avoid inconsistencies."
-        )
+          "Partially created folder was removed to avoid inconsistencies.",
+        ),
       );
-    } catch {
-      // Ignore cleanup errors
+    } catch (cleanupErr) {
+      void cleanupErr; // best-effort cleanup; nothing more to do
     }
 
     process.exit(1);
