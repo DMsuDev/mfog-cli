@@ -1,0 +1,107 @@
+# =============================================================================
+# Pre-commit configuration for Node.js / npm projects
+# https://pre-commit.com
+#
+# Install:  pre-commit install # (runs every time you commit in git)
+# Run all:  pre-commit run --all-files
+# Update:   pre-commit autoupdate
+# =============================================================================
+
+default_language_version:
+  python: python3
+
+ci:
+  autofix_commit_msg: "style: auto fixes from pre-commit"
+  autoupdate_commit_msg: "chore: autoupdate pre-commit hooks"
+  autoupdate_schedule: weekly
+  submodules: false
+
+repos:
+  # === General file hygiene ==============================================
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace # Remove trailing whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer # Ensure files end with newline
+      - id: check-yaml # Validate YAML syntax
+      - id: check-json # Validate JSON syntax
+      - id: check-xml # Validate XML syntax
+      - id: check-merge-conflict # Detect merge conflict markers
+      - id: check-added-large-files # Prevent giant files from being committed
+        args: [--maxkb=1024]
+        exclude: ^(node_modules|dist|build|coverage)/
+      - id: mixed-line-ending # Detect mixed line endings
+        args: [--fix=auto]
+      - id: check-case-conflict # Check for files that would conflict on case-insensitive FS
+      - id: fix-byte-order-marker # Remove UTF-8 BOM
+
+  # === Markdown lint ====================================================
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.47.0
+    hooks:
+      - id: markdownlint
+        name: Lint markdown files (with --fix)
+        args: [--fix]
+        types: [markdown]
+        exclude: ^node_modules/
+
+  # === Spell checking ==================================================
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        name: Lint spelling in source files (with --fix)
+        args:
+          [
+            --ignore-words-list=nd,ot,te,
+            --skip=package-lock.json,node_modules,dist,build,coverage,*.lock,
+          ]
+        exclude: ^node_modules/
+
+  # === YAML ============================================================
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.21.0
+    hooks:
+      - id: yamlfmt
+        name: Format YAML files with yamlfmt
+        args: [
+            --formatter,
+            "indent=2,include_document_start=false,retain_line_breaks=true",
+          ]
+        exclude: ^node_modules/
+
+  # === Prettier =========================================================
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        name: Format frontend files with Prettier
+        types_or:
+          - javascript
+          - jsx
+          - ts
+          - tsx
+          - json
+          - yaml
+          - markdown
+          - css
+          - scss
+          - html
+        exclude: ^(node_modules|dist|build|coverage)/
+
+  # === ESLint ============================================================
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.30.1
+    hooks:
+      - id: eslint
+        name: Lint JavaScript / TypeScript
+        files: \.(js|mjs|cjs|jsx|ts|tsx)$
+        types: [file]
+        additional_dependencies:
+          - eslint@9.30.1
+          - "@eslint/js"
+          - globals
+        args:
+          - --fix
+        exclude: ^(node_modules|dist|build|coverage)/
