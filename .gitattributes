@@ -1,0 +1,102 @@
+# =========================================================
+# Normalize line endings automatically
+# Set the default behavior to automatically normalize line endings to LF on commit.
+# =========================================================
+
+* text=auto eol=lf
+
+# =========================================================
+# Export ignore
+# Excluded from git archive / GitHub source archives
+# (e.g., when downloading a release source code zip or creating an archive with `git archive`).
+# =========================================================
+
+.github/          export-ignore
+.vscode/          export-ignore
+.idea/            export-ignore
+
+tests/            export-ignore
+coverage/         export-ignore
+benchmarks/       export-ignore
+
+.prettier*        export-ignore
+.eslint*          export-ignore
+.editorconfig     export-ignore
+
+ChangeLog.md      export-ignore
+CHANGELOG.md      export-ignore
+
+.gitignore               export-ignore
+.gitattributes           export-ignore
+.markdownlint.json       export-ignore
+.pre-commit-config.yaml  export-ignore
+
+# =========================================================
+# Source files
+# =========================================================
+
+*.js      text
+*.mjs     text
+*.cjs     text
+*.ts      text
+*.mts     text
+*.cts     text
+*.jsx     text
+*.tsx     text
+
+# =========================================================
+# Config / Docs
+# =========================================================
+
+*.json    text
+*.jsonc   text
+*.yml     text
+*.yaml    text
+*.toml    text
+*.md      text
+*.txt     text
+
+# =========================================================
+# Styles / Web
+# =========================================================
+
+*.html    text
+*.css     text
+*.scss    text
+*.sass    text
+
+# =========================================================
+# Binary files
+# Treat common binary assets as binary to prevent CRLF conversion
+# =========================================================
+
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.webp    binary
+*.ico     binary
+*.pdf     binary
+*.zip     binary
+*.gz      binary
+*.7z      binary
+*.woff    binary
+*.woff2   binary
+
+# =========================================================
+# Windows/Linux scripts
+# =========================================================
+
+*.sh      text eol=lf
+*.bat     text eol=crlf
+*.cmd     text eol=crlf
+*.ps1     text eol=crlf
+
+# =========================================================
+# Lockfiles
+# =========================================================
+
+package-lock.json text
+yarn.lock         text
+pnpm-lock.yaml    text
+bun.lockb         binary
