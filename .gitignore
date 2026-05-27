@@ -21,6 +21,7 @@ out/
 .tmp/
 temp/
 .cache/
+.venv/
 
 # TypeScript
 *.tsbuildinfo
