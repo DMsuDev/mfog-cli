@@ -3,10 +3,10 @@ import fs from "fs/promises";
 import chalk from "chalk";
 import ora from "ora";
 import { error } from "../cli/config/log.js";
-import { extractTemplate } from "./extractor.js";
-import { updatePackageFiles } from "./replacer.js";
+import { extractTemplate } from "../services/extractTemplate.js";
+import { writePackageJson } from "../services/writePackageJson.js";
+import { gitSetup } from "../services/gitSetup.js";
 import { paths } from "../cli/config/paths.js";
-import { execSync } from "node:child_process";
 
 /**
  * Main function that generates the complete project
@@ -106,23 +106,11 @@ export async function generateProject(answers) {
       }
     }
 
-    await updatePackageFiles(targetDir, projectName, version);
+    await writePackageJson(targetDir, { name: projectName, version });
 
     // Initialize git if requested by the user
     if (answers.initializeGit) {
-      try {
-        execSync("git init", { cwd: targetDir, stdio: "ignore" });
-        execSync("git add .", { cwd: targetDir, stdio: "ignore" });
-        execSync('git commit -m "Initial commit"', {
-          cwd: targetDir,
-          stdio: "ignore",
-        });
-        console.log(chalk.green("Initialized git repository.\n"));
-      } catch (gitErr) {
-        console.warn(
-          chalk.yellow(`Warning: git initialization failed: ${gitErr.message}`),
-        );
-      }
+      await gitSetup(targetDir);
     }
 
     spinner.succeed("Project created successfully!");
