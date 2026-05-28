@@ -1,5 +1,5 @@
 import { input, select, confirm } from "@inquirer/prompts";
-import { NEEDS_LANGUAGE } from "./config/choices.js";
+import { NEEDS_LANGUAGE } from "../registry/index.js";
 import * as v from "./validators.js";
 
 export const QUESTIONS = [
@@ -36,7 +36,7 @@ export const QUESTIONS = [
       message: " Select a language:",
       choices,
     }),
-    when: (answers) => NEEDS_LANGUAGE.includes(answers.framework),
+    when: (answers) => NEEDS_LANGUAGE.has(answers.framework),
   },
 
   {

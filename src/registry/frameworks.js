@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { Separator } from "@inquirer/prompts";
 
-export const FRAMEWORK_CHOICES = [
+export const FRAMEWORKS = Object.freeze([
   {
     name: `${chalk.cyan.bold("React")} + ${chalk.magenta.bold("Vite")}`,
     value: "react-vite",
@@ -39,11 +39,4 @@ export const FRAMEWORK_CHOICES = [
         "building large-scale, maintainable enterprise applications.",
     ),
   },
-];
-
-export const NEEDS_LANGUAGE = ["react-vite", "vue-vite"];
-
-export const LANGUAGE_CHOICES = [
-  { name: chalk.yellow.bold("JavaScript"), value: "-js" },
-  { name: chalk.blue.bold("TypeScript"), value: "-ts" },
-];
+]);
