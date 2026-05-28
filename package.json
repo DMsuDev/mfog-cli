@@ -26,7 +26,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "mfog": "./src/index.js"
+    "mfog": "./bin/cli.js"
   },
   "exports": {
     ".": "./src/index.js"
@@ -45,8 +45,8 @@
     "access": "public"
   },
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "node ./src/index.js"
+    "start": "node ./bin/cli.js",
+    "dev": "node ./bin/cli.js"
   },
   "dependencies": {
     "7zip-min": "^2.1.0",
