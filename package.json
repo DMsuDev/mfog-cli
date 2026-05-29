@@ -47,7 +47,11 @@
   },
   "scripts": {
     "start": "node ./bin/cli.js",
-    "dev": "node ./bin/cli.js"
+    "dev": "node ./bin/cli.js",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format:check": "prettier --check .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "7zip-min": "^3.0.1",
