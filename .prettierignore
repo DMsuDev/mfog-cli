@@ -1,0 +1,17 @@
+# Dependencies / build output
+node_modules/
+dist/
+build/
+coverage/
+templates/
+
+# Lockfiles
+pnpm-lock.yaml
+package-lock.json
+
+# Tooling config (formatted/managed separately)
+.pre-commit-config.yaml
+.markdownlint.yaml
+
+# Local output
+my-app/
