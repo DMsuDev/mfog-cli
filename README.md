@@ -2,9 +2,9 @@
 
   <!-- Logo -->
   <picture style="display: block; margin-top: 15px;">
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/mfog-logo-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="assets/logo/mfog-logo-light.png">
-    <img width="320" src="assets/logo/mfog-logo-light.png" alt="MFoG Logo" style="margin-bottom: 12px;">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/mfog-logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo/mfog-logo-light.svg">
+    <img width="320" src="assets/logo/mfog-logo-light.svg" alt="MFoG Logo" style="margin-bottom: 12px;">
   </picture>
 
   <!-- Tagline -->
@@ -121,4 +121,3 @@ This project is licensed under the **MIT License**.<br>
 See the [LICENSE](LICENSE) file for more information.
 
 Thanks for checking out **MFOG**! ❤️<br>
-If you have any questions or feedback, feel free to open an issue or contribute to the project. Happy coding! 🚀
