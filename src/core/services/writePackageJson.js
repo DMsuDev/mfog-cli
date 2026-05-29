@@ -66,31 +66,21 @@ export async function updatePackageJson(projectDir, updates) {
 export async function updatePackageLockJson(projectDir, updates) {
   const lockPath = path.join(projectDir, "package-lock.json");
 
-  const exists = await fileExists(lockPath);
-
-  if (!exists) {
+  if (!(await fileExists(lockPath))) {
     return false;
   }
 
   const lock = await readJson(lockPath);
 
-  if (updates.name && lock.name) {
-    lock.name = updates.name;
+  const root = lock.packages?.[""];
+
+  if (root) {
+    if (updates.name) root.name = updates.name;
+    if (updates.version) root.version = updates.version;
   }
 
-  if (updates.version && lock.version) {
-    lock.version = updates.version;
-  }
-
-  if (lock.packages?.[""]) {
-    if (updates.name) {
-      lock.packages[""].name = updates.name;
-    }
-
-    if (updates.version) {
-      lock.packages[""].version = updates.version;
-    }
-  }
+  if (updates.name && lock.name) lock.name = updates.name;
+  if (updates.version && lock.version) lock.version = updates.version;
 
   await writeJson(lockPath, lock);
 

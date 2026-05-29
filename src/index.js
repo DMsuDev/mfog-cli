@@ -1,8 +1,11 @@
-import { clearConsole, waitTime } from "./cli/console.js";
-import { banner, contentBox, showSuccessInstructions } from "./cli/banner.js";
-import { error, highlight, success } from "./cli/config/log.js";
-import { collectAnswers } from "./lib/collect-answers.js";
-import { generateProject } from "./core/generator.js";
+import { banner, contentBox, showQuickStart } from "./cli/layout/index.js";
+import { logger, clearConsole, sleep } from "./utils/index.js";
+import { QUESTIONS } from "./cli/prompts/questions.js";
+import { runQuestions } from "./cli/prompts/runner.js";
+import { installTemplate } from "./core/installTemplate.js";
+import { buildConfig } from "./core/config/buildConfig.js";
+
+import chalk from "chalk";
 
 let contentMsg = `Modular Framework Offline Generator\n\n Thank you for using MFOG, created by DMsuDev.`;
 
@@ -11,26 +14,28 @@ export async function run() {
     clearConsole();
 
     await banner("CREATE APP OFFLINE");
-    contentBox(highlight(contentMsg));
+    contentBox(chalk.white.bold(contentMsg));
 
-    await waitTime(200);
+    await sleep(200);
 
-    const answers = await collectAnswers();
+    const answers = await runQuestions(QUESTIONS);
 
-    await generateProject(answers);
+    const config = buildConfig(answers);
 
-    await waitTime(250);
+    await installTemplate(config);
+
+    await sleep(250);
 
     clearConsole();
 
-    contentBox(success("Project Created successfully", true));
+    contentBox(chalk.greenBright.bold("Project Created successfully"));
 
-    await showSuccessInstructions(
+    await showQuickStart(
       answers.name,
       answers.framework + (answers.language || ""),
     );
   } catch (err) {
-    console.error("Error:", error(err.message));
+    logger.error(err.message);
     process.exit(1);
   }
 }
