@@ -23,12 +23,11 @@ benchmarks/       export-ignore
 .eslint*          export-ignore
 .editorconfig     export-ignore
 
-ChangeLog.md      export-ignore
-CHANGELOG.md      export-ignore
+Changelog.md      export-ignore
 
 .gitignore               export-ignore
 .gitattributes           export-ignore
-.markdownlint.json       export-ignore
+.markdownlint.yaml       export-ignore
 .pre-commit-config.yaml  export-ignore
 
 # =========================================================
@@ -64,6 +63,7 @@ CHANGELOG.md      export-ignore
 *.css     text
 *.scss    text
 *.sass    text
+*.svg     text
 
 # =========================================================
 # Binary files
@@ -97,6 +97,6 @@ CHANGELOG.md      export-ignore
 # =========================================================
 
 package-lock.json text
-yarn.lock         text
 pnpm-lock.yaml    text
+yarn.lock         text
 bun.lockb         binary

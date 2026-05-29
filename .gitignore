@@ -2,6 +2,8 @@
 # Dependencies
 # =========================================================
 node_modules/
+
+# npm lockfile (project uses pnpm; keep package-lock.json out of the repo)
 package-lock.json
 
 # Package managers
@@ -88,6 +90,19 @@ coverage/
 # =========================================================
 .eslintcache
 .stylelintcache
+
+# =========================================================
+# Tooling / Python (pre-commit, etc.)
+# =========================================================
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# =========================================================
+# Local scaffold / test output
+# =========================================================
+my-app/
 
 # =========================================================
 # Misc

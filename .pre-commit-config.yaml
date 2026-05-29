@@ -1,8 +1,8 @@
 # =============================================================================
-# Pre-commit configuration for Node.js / npm projects
+# Pre-commit configuration for Node.js / pnpm projects
 # https://pre-commit.com
 #
-# Install:  pre-commit install # (runs every time you commit in git)
+# Install:  pre-commit install   # runs on every git commit
 # Run all:  pre-commit run --all-files
 # Update:   pre-commit autoupdate
 # =============================================================================
@@ -30,7 +30,7 @@ repos:
       - id: check-merge-conflict # Detect merge conflict markers
       - id: check-added-large-files # Prevent giant files from being committed
         args: [--maxkb=1024]
-        exclude: ^(node_modules|dist|build|coverage)/
+        exclude: ^(node_modules|dist|build|coverage|templates)/
       - id: mixed-line-ending # Detect mixed line endings
         args: [--fix=auto]
       - id: check-case-conflict # Check for files that would conflict on case-insensitive FS
@@ -54,7 +54,7 @@ repos:
         name: Lint spelling in source files (with --fix)
         args:
           - "--ignore-words-list=nd,ot,te"
-          - "--skip=package-lock.json,node_modules,dist,build,coverage"
+          - "--skip=pnpm-lock.yaml,package-lock.json,node_modules,dist,build,coverage"
         exclude: ^(node_modules|dist|build|coverage)/
 
   # === YAML ============================================================
@@ -66,11 +66,12 @@ repos:
         args:
           - --formatter
           - "indent=2,include_document_start=false,retain_line_breaks=true"
-        exclude: ^(\.pre-commit-config\.yaml|\.markdownlint\.yaml|node_modules|dist|build|coverage)/
+        exclude: ^(\.pre-commit-config\.yaml|\.markdownlint\.yaml|pnpm-lock\.yaml|node_modules|dist|build|coverage)(/|$)
 
   # === Prettier =========================================================
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
+  # pre-commit/mirrors-prettier is archived; rbubley/mirrors-prettier tracks stable releases
+  - repo: https://github.com/rbubley/mirrors-prettier
+    rev: v3.8.3
     hooks:
       - id: prettier
         name: Format frontend files with Prettier
@@ -85,20 +86,16 @@ repos:
           - css
           - scss
           - html
-        exclude: ^(\.pre-commit-config\.yaml|\.markdownlint\.yaml|node_modules|dist|build|coverage)/
+        exclude: ^(\.pre-commit-config\.yaml|\.markdownlint\.yaml|pnpm-lock\.yaml|package-lock\.json|node_modules|dist|build|coverage)(/|$)
 
-  # === ESLint ============================================================
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v10.4.0
+  # === ESLint (uses project flat config via pnpm) =======================
+  - repo: local
     hooks:
       - id: eslint
         name: Lint JavaScript / TypeScript
+        entry: pnpm exec eslint --fix
+        language: system
         files: \.(js|mjs|cjs|jsx|ts|tsx)$
-        types: [file]
-        additional_dependencies:
-          - eslint@10
-          - "@eslint/js"
-          - globals
-        args:
-          - --fix
+        pass_filenames: true
+        require_serial: true
         exclude: ^(node_modules|dist|build|coverage)/
