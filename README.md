@@ -17,7 +17,7 @@
     <!-- Primary badges -->
     <a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Runtime-Node.js-339933?style=flat&logo=node.js" alt="Runtime - Node.js" /></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat&logo=open-source-initiative&logoColor=white" alt="License MIT" /></a>
-    <a href="https://www.npmjs.com/package/modular-framework-offline-generator"><img src="https://img.shields.io/npm/v/modular-framework-offline-generator?style=flat&logo=npm" alt="Published on NPM" /></a>
+    <a href="https://www.npmjs.com/package/@dmsudev/mfog"><img src="https://img.shields.io/npm/v/@dmsudev/mfog?style=flat&logo=npm" alt="Published on NPM" /></a>
   </p>
 
   <p>
@@ -49,6 +49,8 @@ It allows you to scaffold projects using prebuilt local templates, without requi
 
 This makes project creation easy for environments with limited connectivity or for users who prefer a faster setup process.
 
+> Previously published as [`modular-framework-offline-generator`](https://www.npmjs.com/package/modular-framework-offline-generator).
+
 <p align="center">
   <img src="assets/app.gif" width="600" alt="MFOG App Preview">
 </p>
@@ -63,7 +65,7 @@ This makes project creation easy for environments with limited connectivity or f
 Install MFOG globally via npm:
 
 ```sh
-npm install -g modular-framework-offline-generator
+npm install -g @dmsudev/mfog
 ```
 
 Once installed, the `mfog` command will be available in your terminal.

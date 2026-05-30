@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.0] - 2026-05-30
+
+> Rebranded from `modular-framework-offline-generator` to `@dmsudev/mfog`.
+> Previous release history is preserved below for reference.
+
+### Changed
+
+- Renamed package to `@dmsudev/mfog`
+- Migrated repository to `DMsuDev/mfog-cli`
+
+---
+
+## Legacy — modular-framework-offline-generator
+
 ## [1.3.2] - 2026-05-29
 
 Internal refactor into modular CLI/services/registry layers, improved error handling, pnpm + lint tooling for contributors, `7zip-min` v3, and README/SVG updates. CLI behavior for end users is unchanged.

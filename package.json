@@ -1,11 +1,14 @@
 {
-  "name": "modular-framework-offline-generator",
-  "version": "1.3.2",
+  "name": "@dmsudev/mfog",
+  "version": "1.0.0",
   "description": "Modular CLI for creating projects from multiple frameworks using offline local templates.",
   "keywords": [
     "cli",
     "scaffold",
     "project-generator",
+    "mfog",
+    "@dmsudev/mfog",
+    "modular-framework-offline-generator",
     "create-react-app",
     "template",
     "offline",
@@ -16,12 +19,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/DMsuDev/Modular-Framework-Offline-Generator.git"
+    "url": "https://github.com/DMsuDev/mfog-cli.git"
   },
   "bugs": {
-    "url": "https://github.com/DMsuDev/Modular-Framework-Offline-Generator/issues"
+    "url": "https://github.com/DMsuDev/mfog-cli/issues"
   },
-  "homepage": "https://github.com/DMsuDev/Modular-Framework-Offline-Generator#readme",
+  "homepage": "https://github.com/DMsuDev/mfog-cli#readme",
   "author": "DMsuDev",
   "license": "MIT",
   "type": "module",
