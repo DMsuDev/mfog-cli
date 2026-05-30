@@ -23,6 +23,26 @@ export async function validateProjectSetup({ framework, targetDir }) {
   return true;
 }
 
+async function resolveTemplatePath(framework, language) {
+  const candidates = [`${framework}${language || ""}.7z`, `${framework}.7z`];
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const templatesDir = path.join(__dirname, "..", "..", "templates");
+
+  for (const name of candidates) {
+    const candidatePath = path.join(templatesDir, name);
+    try {
+      await fs.access(candidatePath);
+      return candidatePath;
+    } catch {
+      // try next candidate
+    }
+  }
+
+  throw new Error(
+    `Template not found for "${framework}${language ? ` (${language})` : ""}". Looked for: ${candidates.join(", ")}`,
+  );
+}
+
 /**
  * Moves a directory from source to destination. If the move operation fails due to cross-device issues, it falls back to copying and deleting the source.
  * @param {string} source - The path of the directory to move.
@@ -70,19 +90,9 @@ export async function installTemplate(config) {
     // Create target directory (if it doesn't exist)
     await fs.mkdir(targetDir, { recursive: true });
 
-    const archive = `${framework}${language || ""}.7z`;
+    const archivePath = await resolveTemplatePath(framework, language);
 
-    // Resolve templates relative to this package first (works when installed globally or run from repo)
-    const __dirname = path.dirname(fileURLToPath(import.meta.url));
-    const archivePath = path.join(__dirname, "..", "..", "templates", archive);
-
-    try {
-      await fs.access(archivePath);
-    } catch {
-      throw new Error(`Template not found: ${archive}`);
-    }
-
-    spinner.text = `Extracting template ${chalk.cyan(archive)}...`;
+    spinner.text = `Extracting template ${chalk.cyan(archivePath)}...`;
 
     // Extract the template and move it to the target directory
     const extractedPath = await extractTemplate(archivePath);
@@ -97,7 +107,10 @@ export async function installTemplate(config) {
 
     if (gitInit) {
       spinner.text = "Initializing git...";
-      await gitSetup(targetDir);
+      const initialized = await gitSetup(targetDir);
+      if (!initialized) {
+        spinner.warn("Git not found, skipping git initialization.");
+      }
     }
 
     spinner.succeed(
