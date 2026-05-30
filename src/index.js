@@ -30,10 +30,7 @@ export async function run() {
 
     contentBox(chalk.greenBright.bold("Project Created successfully"));
 
-    await showQuickStart(
-      answers.name,
-      answers.framework + (answers.language || ""),
-    );
+    await showQuickStart(answers.name, answers.framework);
   } catch (err) {
     logger.error(err.message);
     process.exit(1);
