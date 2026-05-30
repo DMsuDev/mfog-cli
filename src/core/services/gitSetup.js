@@ -10,6 +10,12 @@ const run = promisify(exec);
  * @throws Will throw an error if git commands fail.
  */
 export async function gitSetup(targetDir) {
+  const gitAvailable = await run("git --version", { stdio: "ignore" })
+    .then(() => true)
+    .catch(() => false);
+
+  if (!gitAvailable) return;
+
   try {
     await run("git init", { cwd: targetDir });
     await run("git add .", { cwd: targetDir });
@@ -18,8 +24,26 @@ export async function gitSetup(targetDir) {
       stdio: "ignore",
     });
   } catch (err) {
-    throw new Error("Git initialization failed", {
-      cause: err,
-    });
+    const message = err?.message?.toLowerCase() ?? "";
+
+    if (message.includes("permission denied") || message.includes("eperm")) {
+      throw new Error(`Permission denied in directory: ${targetDir}`, {
+        cause: err,
+      });
+    }
+
+    if (message.includes("already exists")) {
+      throw new Error(
+        `Directory already contains a Git repository: ${targetDir}`,
+        { cause: err },
+      );
+    }
+
+    throw new Error(
+      `Git initialization failed in ${targetDir}: ${err?.message ?? "unknown error"}`,
+      { cause: err },
+    );
   }
+
+  return true;
 }
