@@ -1,5 +1,6 @@
 import path from "node:path";
 import fs from "fs/promises";
+import { fileURLToPath } from "node:url";
 import chalk from "chalk";
 import ora from "ora";
 
@@ -71,7 +72,15 @@ export async function installTemplate(config) {
 
     const archive = `${framework}${language || ""}.7z`;
 
-    const archivePath = path.join(process.cwd(), "templates", archive);
+    // Resolve templates relative to this package first (works when installed globally or run from repo)
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const archivePath = path.join(__dirname, "..", "..", "templates", archive);
+
+    try {
+      await fs.access(archivePath);
+    } catch {
+      throw new Error(`Template not found: ${archive}`);
+    }
 
     spinner.text = `Extracting template ${chalk.cyan(archive)}...`;
 
