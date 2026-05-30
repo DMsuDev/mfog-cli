@@ -39,6 +39,7 @@
 - [Project structure](#project-structure)
 - [Development](#development)
 - [Frameworks](#frameworks)
+- [Roadmap](#roadmap)
 - [License](#license)
 
 ## Overview
@@ -48,8 +49,6 @@
 It allows you to scaffold projects using prebuilt local templates, without requiring an internet connection or downloading external boilerplates.
 
 This makes project creation easy for environments with limited connectivity or for users who prefer a faster setup process.
-
-> Previously published as [`modular-framework-offline-generator`](https://www.npmjs.com/package/modular-framework-offline-generator).
 
 <p align="center">
   <img src="assets/app.gif" width="600" alt="MFOG App Preview">
@@ -69,6 +68,13 @@ npm install -g @dmsudev/mfog
 ```
 
 Once installed, the `mfog` command will be available in your terminal.
+
+> [!NOTE]
+> If you had the deprecated package `modular-framework-offline-generator` previously installed, uninstall it first:
+>
+> ```bash
+> npm uninstall -g modular-framework-offline-generator
+> ```
 
 ## Create a project
 
@@ -116,6 +122,12 @@ npm start
 - 🔵 React `v19.2.0`
 - 🔴 Angular `v21.1.0`
 - ⚫ Next.js `v16.1.1`
+
+## Roadmap
+
+- [x] Offline local templates
+- [x] React, Vue, Angular, Next.js support
+- [ ] Offline cache system to replace bundled templates and reduce package size
 
 ## License
 
