@@ -1,6 +1,6 @@
 {
   "name": "@dmsudev/mfog",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Modular CLI for creating projects from multiple frameworks using offline local templates.",
   "keywords": [
     "cli",
