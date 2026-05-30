@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.2] - 2026-05-30
+
+### Fixed
+
+- templates are now resolved through a dedicated `resolveTemplatePath` function with proper candidate fallback (`framework+language` → `framework` only)
+- `showQuickStart` now receives only the framework name instead of the concatenated `framework+language` string, fixing start command resolution for Angular and Next.js
+
+### Changed
+
+- extracted template path resolution into `resolveTemplatePath` for clarity and reusability
+
 ## [1.0.1] - 2026-05-30
 
 ### Fixed
