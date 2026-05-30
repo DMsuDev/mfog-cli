@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1] - 2026-05-30
+
+### Fixed
+
+- templates are now resolved relative to the package installation directory instead of the current working directory
+
 ## [1.0.0] - 2026-05-30
 
 > Rebranded from `modular-framework-offline-generator` to `@dmsudev/mfog`.
